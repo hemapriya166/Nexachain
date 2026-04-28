@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaChain — AI Supply Chain Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <span class="logo-text">Nexa<span>Chain</span></span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+      <button class="nav-item active" onclick="showPage('driver')" id="nav-driver">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+        Driver Dashboard
+        <span class="nav-badge">3</span>
+      </button>
+      <button class="nav-item" onclick="showPage('tracking')" id="nav-tracking">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></span>
+        Customer Tracking
+      </button>
+      <button class="nav-item" onclick="showPage('admin')" id="nav-admin">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>
+        Admin Panel
+      </button>
+
+      <div class="nav-section-label" style="margin-top:12px">System</div>
+      <button class="nav-item" onclick="showToast('Analytics module coming soon!','info')">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+        Analytics
+      </button>
+      <button class="nav-item" onclick="showToast('Fleet management coming soon!','info')">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        Fleet Manager
+      </button>
+      <button class="nav-item" onclick="showToast('Settings panel opening...','info')">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></span>
+        Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="user-avatar">AK</div>
+        <div class="user-info">
+          <div class="user-name">Arjun Kumar</div>
+          <div class="user-role">Fleet Manager</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <span class="topbar-title" id="page-title">Driver Dashboard</span>
+      <div class="topbar-actions">
+        <span class="time-display" id="clock"></span>
+        <button class="topbar-btn notif-dot" onclick="showToast('3 new alerts pending','warning')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </button>
+        <button class="topbar-btn" onclick="showToast('Refreshing data...','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ========================= DRIVER DASHBOARD ========================= -->
+    <div class="page active" id="page-driver">
+      <div class="page-content">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;">Good morning, Ravi 👋</h2>
+            <p style="font-size:13px;color:var(--text-muted);">You have <strong>3 deliveries</strong> scheduled for today</p>
+          </div>
+          <div class="status-toggle-bar">
+            <button class="toggle-btn active" id="toggle-active"  onclick="setDriverStatus('active')">🟢 On Duty</button>
+            <button class="toggle-btn"        id="toggle-break"   onclick="setDriverStatus('break')">🟡 On Break</button>
+            <button class="toggle-btn"        id="toggle-offline" onclick="setDriverStatus('offline')">🔴 Off Duty</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-card-header"><span class="stat-label">Today's Deliveries</span>
+              <span class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+            </div>
+            <div class="stat-value" id="ds-deliveries">3</div><div class="stat-change neutral">2 remaining</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-card-header"><span class="stat-label">Completed</span>
+              <span class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="stat-value" id="ds-completed">1</div><div class="stat-change up">↑ On schedule</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-card-header"><span class="stat-label">Distance (km)</span>
+              <span class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></span>
+            </div>
+            <div class="stat-value" id="ds-distance">47.2</div><div class="stat-change neutral">28.8 km left</div>
+          </div>
+          <div class="stat-card teal">
+            <div class="stat-card-header"><span class="stat-label">ETA Accuracy</span>
+              <span class="stat-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            </div>
+            <div class="stat-value" id="ds-accuracy">94%</div><div class="stat-change up">↑ Above avg</div>
+          </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="driver-grid">
+          <!-- Left -->
+          <div>
+            <!-- Map -->
+            <div class="card" style="margin-bottom:20px;padding:0;overflow:hidden;">
+              <div class="map-container">
+                <div class="map-grid"></div>
+                <svg viewBox="0 0 380 300" style="position:absolute;inset:0;width:100%;height:100%;">
+                  <defs><marker id="arrowhead" markerWidth="6" markerHeight="4" refX="3" refY="2" orient="auto">
+                    <polygon points="0 0, 6 2, 0 4" fill="#38BDF8"/>
+                  </marker></defs>
+                  <polyline points="60,240 120,180 190,150 260,110 320,70" fill="none" stroke="#38BDF8" stroke-width="3" stroke-dasharray="8,4" marker-end="url(#arrowhead)" opacity="0.8"/>
+                  <polyline points="60,240 90,200 120,180" fill="none" stroke="#22C55E" stroke-width="3" opacity="0.9"/>
+                </svg>
+                <div class="map-label"><div class="live-dot"></div>Live Tracking • Coimbatore, TN</div>
+                <div class="map-marker" style="left:32%;top:60%;">
+                  <div class="marker-pin driver"></div>
+                  <div class="marker-label" style="color:#1D4ED8;font-size:9px;">YOU</div>
+                </div>
+                <div class="map-marker" style="left:68%;top:37%;">
+                  <div class="marker-pin stop"></div>
+                  <div class="marker-label" style="color:#B45309;">STOP 2</div>
+                </div>
+                <div class="map-marker" style="left:84%;top:23%;">
+                  <div class="marker-pin dest"></div>
+                  <div class="marker-label" style="color:#991B1B;">FINAL</div>
+                </div>
+                <div style="position:absolute;bottom:14px;right:14px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);color:white;padding:8px 14px;border-radius:var(--radius-md);font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.15);">
+                  <span style="color:#38BDF8;">28.8 km</span> remaining
+                </div>
+                <div style="position:absolute;bottom:14px;left:14px;background:linear-gradient(135deg,rgba(37,99,235,.9),rgba(13,148,136,.9));color:white;padding:6px 12px;border-radius:var(--radius-xl);font-size:11px;font-weight:700;">
+                  ✨ AI Optimized Route
+                </div>
+              </div>
+            </div>
+
+            <!-- Route Steps -->
+            <div class="card" style="margin-bottom:20px;">
+              <div class="card-header">
+                <div><div class="card-title">📍 Optimized Route</div>
+                  <div class="card-subtitle">AI-powered route — saves ~18 min vs standard</div>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="showToast('Route recalculated!','success')">Recalculate</button>
+              </div>
+              <div class="route-step">
+                <div class="step-dot done">✓</div>
+                <div class="step-info"><div class="step-name">Warehouse — Gandhipuram</div><div class="step-time">Departed 09:15 AM • 12.3 km • Completed</div></div>
+              </div>
+              <div class="route-step">
+                <div class="step-dot current">2</div>
+                <div class="step-info"><div class="step-name">Stop 2 — RS Puram (Current)</div><div class="step-time">ETA 11:40 AM • 16.5 km • In progress</div></div>
+              </div>
+              <div class="route-step">
+                <div class="step-dot future">3</div>
+                <div class="step-info"><div class="step-name">Final — Peelamedu, KGISL</div><div class="step-time">ETA 3:30 PM • 19.0 km • Upcoming</div></div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="delivery-actions">
+              <button class="btn btn-success btn-lg" onclick="showToast('Delivery confirmed successfully!','success')" style="width:100%;justify-content:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Confirm Delivery
+              </button>
+              <button class="btn btn-warning btn-lg" onclick="showToast('Delay reported to dispatch','warning')" style="width:100%;justify-content:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Report Delay
+              </button>
+            </div>
+          </div>
+
+          <!-- Right -->
+          <div>
+            <!-- Tasks -->
+            <div class="card" style="margin-bottom:20px;">
+              <div class="card-header">
+                <div><div class="card-title">🚚 Today's Deliveries</div></div>
+                <span style="font-size:12px;color:var(--text-muted);">1 of 3 done</span>
+              </div>
+              <div id="task-list">
+                <div class="loading-spinner"></div>
+              </div>
+            </div>
+
+            <!-- Alerts -->
+            <div class="card">
+              <div class="card-header">
+                <div><div class="card-title">⚡ Live Alerts</div></div>
+                <button class="btn btn-outline btn-sm" onclick="showToast('All alerts cleared','success')">Clear All</button>
+              </div>
+              <div class="alert-item danger">
+                <div class="alert-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></div>
+                <div><div class="alert-title">Vehicle Check Required</div><div class="alert-desc">Next service due in 320 km.</div><div class="alert-time">1 hr ago</div></div>
+              </div>
+              <div class="alert-item warning">
+                <div class="alert-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg></div>
+                <div><div class="alert-title">Traffic on Avinashi Rd</div><div class="alert-desc">Expect 12-min extra. Route updated.</div><div class="alert-time">8 min ago</div></div>
+              </div>
+              <div class="alert-item success">
+                <div class="alert-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><div class="alert-title">DEL-001 Confirmed</div><div class="alert-desc">Customer signed. Payment received.</div><div class="alert-time">22 min ago</div></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /driver-grid -->
+      </div>
+    </div>
+
+    <!-- ========================= CUSTOMER TRACKING ========================= -->
+    <div class="page" id="page-tracking">
+      <div class="page-content">
+        <div class="tracking-hero">
+          <h2>Track Your Shipment</h2>
+          <p>Enter your Order ID to get real-time updates</p>
+          <div class="search-input-wrap">
+            <input class="search-input" type="text" id="order-input" placeholder="e.g. ORD-2847, ORD-2851, ORD-2863"
+              onkeydown="if(event.key==='Enter') trackOrder()"/>
+            <button class="btn btn-primary" onclick="trackOrder()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Track
+            </button>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+            <span style="font-size:12px;color:rgba(255,255,255,.5);">Try:</span>
+            <button onclick="quickTrack('ORD-2847')" style="background:rgba(255,255,255,.15);color:white;border:none;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;">ORD-2847</button>
+            <button onclick="quickTrack('ORD-2851')" style="background:rgba(255,255,255,.15);color:white;border:none;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;">ORD-2851</button>
+            <button onclick="quickTrack('ORD-2863')" style="background:rgba(255,255,255,.15);color:white;border:none;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;">ORD-2863</button>
+          </div>
+        </div>
+        <div id="tracking-result" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- ========================= ADMIN PANEL ========================= -->
+    <div class="page" id="page-admin">
+      <div class="page-content">
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-card-header"><span class="stat-label">Total Deliveries</span>
+              <span class="stat-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></span>
+            </div>
+            <div class="stat-value" id="as-total">248</div><div class="stat-change up">↑ 12% this week</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-card-header"><span class="stat-label">On-Time Rate</span>
+              <span class="stat-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="stat-value" id="as-ontime">87%</div><div class="stat-change up">↑ 3% vs last wk</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-card-header"><span class="stat-label">Delayed</span>
+              <span class="stat-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            </div>
+            <div class="stat-value" id="as-delayed">31</div><div class="stat-change down">↓ 5% improved</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-card-header"><span class="stat-label">Failed</span>
+              <span class="stat-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></span>
+            </div>
+            <div class="stat-value" id="as-failed">8</div><div class="stat-change down">↓ 2 fewer today</div>
+          </div>
+          <div class="stat-card teal">
+            <div class="stat-card-header"><span class="stat-label">Active Drivers</span>
+              <span class="stat-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+            </div>
+            <div class="stat-value" id="as-drivers">14</div><div class="stat-change neutral">2 on break</div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="admin-grid" style="margin-bottom:24px;">
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title">Weekly Deliveries</div><div class="card-subtitle">Last 7 days performance</div></div>
+            </div>
+            <div class="chart-bars" id="bar-chart"></div>
+            <div style="display:flex;gap:16px;margin-top:16px;font-size:12px;">
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#2563EB;display:inline-block;"></span>On-Time</span>
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:2px;background:#F59E0B;display:inline-block;"></span>Delayed</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title">Delivery Status</div><div class="card-subtitle">Current distribution</div></div>
+            </div>
+            <div class="donut-wrap">
+              <svg viewBox="0 0 120 120" width="140" height="140">
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#E2E8F0" stroke-width="18"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#2563EB" stroke-width="18" stroke-dasharray="244 283" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#F59E0B" stroke-width="18" stroke-dasharray="35 283" stroke-dashoffset="-244" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                <circle cx="60" cy="60" r="45" fill="none" stroke="#EF4444" stroke-width="18" stroke-dasharray="9 283" stroke-dashoffset="-279" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                <text x="60" y="55" text-anchor="middle" font-size="18" font-weight="800" fill="#0D1117">248</text>
+                <text x="60" y="70" text-anchor="middle" font-size="9" fill="#718096">total</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#2563EB;"></div><span class="legend-label">Completed</span><span class="legend-val">209</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;"></div><span class="legend-label">Delayed</span><span class="legend-val">31</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#EF4444;"></div><span class="legend-label">Failed</span><span class="legend-val">8</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#0D9488;"></div><span class="legend-label">In Transit</span><span class="legend-val">14</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerts + Table -->
+        <div class="section-grid" style="margin-bottom:24px;">
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title">⚡ System Alerts</div><div class="card-subtitle">Real-time notifications</div></div>
+            </div>
+            <div id="alerts-list"><div class="loading-spinner"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title">🏆 Top Performers</div><div class="card-subtitle">This week</div></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface-2);border-radius:var(--radius-md);">
+                <div style="width:28px;height:28px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:14px;">🥇</div>
+                <div style="flex:1;"><div style="font-size:13px;font-weight:700;">Ravi Kumar</div><div style="font-size:11px;color:var(--text-muted);">DRV-14 • 18 deliveries</div></div>
+                <div style="font-size:14px;font-weight:800;color:#16A34A;">100%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface-2);border-radius:var(--radius-md);">
+                <div style="width:28px;height:28px;border-radius:50%;background:#C0C0C0;display:flex;align-items:center;justify-content:center;font-size:14px;">🥈</div>
+                <div style="flex:1;"><div style="font-size:13px;font-weight:700;">Anitha K</div><div style="font-size:11px;color:var(--text-muted);">DRV-41 • 15 deliveries</div></div>
+                <div style="font-size:14px;font-weight:800;color:#16A34A;">97%</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px;background:var(--surface-2);border-radius:var(--radius-md);">
+                <div style="width:28px;height:28px;border-radius:50%;background:#CD7F32;display:flex;align-items:center;justify-content:center;font-size:14px;">🥉</div>
+                <div style="flex:1;"><div style="font-size:13px;font-weight:700;">Priya Sharma</div><div style="font-size:11px;color:var(--text-muted);">DRV-07 • 14 deliveries</div></div>
+                <div style="font-size:14px;font-weight:800;color:#D97706;">89%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="filter-bar">
+          <input class="filter-input" type="text" id="admin-search" placeholder="🔍 Search ID, driver, destination..." oninput="filterTable()">
+          <select class="filter-select" id="status-filter" onchange="filterTable()">
+            <option value="">All Statuses</option>
+            <option value="on-time">On-Time</option>
+            <option value="delayed">Delayed</option>
+            <option value="in-transit">In Transit</option>
+            <option value="completed">Completed</option>
+            <option value="critical">Critical</option>
+            <option value="pending">Pending</option>
+          </select>
+          <select class="filter-select" id="driver-filter" onchange="filterTable()">
+            <option value="">All Drivers</option>
+            <option>Ravi Kumar</option><option>Priya Sharma</option><option>Arun Patel</option>
+            <option>Meena Raj</option><option>Karthik S</option><option>Divya Nair</option>
+            <option>Suresh M</option><option>Lakshmi V</option><option>Venkat R</option>
+            <option>Anitha K</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="exportData()" style="margin-left:auto;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+        </div>
+
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th onclick="sortTable('id')">Delivery ID ↕</th>
+                <th onclick="sortTable('driver')">Driver ↕</th>
+                <th onclick="sortTable('destination')">Destination ↕</th>
+                <th onclick="sortTable('status')">Status ↕</th>
+                <th onclick="sortTable('eta')">ETA ↕</th>
+                <th onclick="sortTable('weight')">Weight ↕</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+          <div class="table-footer">
+            <span class="table-count" id="table-count"></span>
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main><!-- /main -->
+</div><!-- /app-shell -->
+
+<!-- Toast container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script src="../static/js/main.js"></script>
+</body>
+</html>
